@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PlatformRepository extends JpaRepository<Platform, Long> {
 
-    @Query("select distinct p from Platform p left join fetch p.games g where upper(p.code) = upper(:code)")
+    @Query("select p from Platform p where upper(p.code) = upper(:code)")
     Platform findByCode(String code);
 }
