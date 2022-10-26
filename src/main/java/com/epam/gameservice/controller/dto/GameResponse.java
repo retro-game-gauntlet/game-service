@@ -15,8 +15,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class GameResponse {
 
     @JsonProperty("data")
-    private GameDtoData data;
+    private final GameDtoData data;
 
     @JsonProperty("errors")
-    private List<ErrorInfo> errorInfos;
+    private final List<ErrorInfo> errorInfos;
 }

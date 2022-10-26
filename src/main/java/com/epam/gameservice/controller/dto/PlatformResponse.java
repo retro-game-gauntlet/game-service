@@ -15,8 +15,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class PlatformResponse {
 
     @JsonProperty("data")
-    private PlatformDtoData data;
+    private final PlatformDtoData data;
 
     @JsonProperty("errors")
-    private List<ErrorInfo> errorInfos;
+    private final List<ErrorInfo> errorInfos;
 }
