@@ -11,6 +11,6 @@ public interface PlatformResponseMapper {
 
     PlatformResponseMapper INSTANCE = Mappers.getMapper(PlatformResponseMapper.class);
 
-    @Mapping(source = ".", target = "data.platformDto")
+    @Mapping(source = ".", target = "data.attributes")
     PlatformResponse map(PlatformDto platformDto);
 }

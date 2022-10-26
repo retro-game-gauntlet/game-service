@@ -41,7 +41,7 @@ public class PlatformController {
 
     private GameResponse buildGameResponse(List<GameDto> gameDtos) {
         return GameResponse.builder()
-                .data(GameDtoData.builder().gameDtos(gameDtos).build())
+                .data(GameDtoData.builder().attributes(gameDtos).build())
                 .build();
     }
 }
