@@ -18,7 +18,7 @@ import static javax.persistence.GenerationType.AUTO;
 @Setter
 @ToString
 @Table(name = "games", indexes = {
-        @Index(name = "game_platform_fk_idx_game", columnList = "platform_id")
+        @Index(name = "games_platform_id_idx", columnList = "platform_id")
 })
 public class Game extends AuditMetadata {
 

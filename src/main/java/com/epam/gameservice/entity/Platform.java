@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
@@ -38,4 +40,17 @@ public class Platform extends AuditMetadata {
 
     @Column(name = "released_at", nullable = false)
     private LocalDate releasedAt;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Platform platform = (Platform) o;
+        return id != null && Objects.equals(id, platform.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

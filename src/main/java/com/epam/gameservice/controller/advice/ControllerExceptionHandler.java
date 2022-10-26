@@ -1,8 +1,8 @@
 package com.epam.gameservice.controller.advice;
 
 import com.epam.gameservice.controller.dto.ErrorInfo;
-import com.epam.gameservice.controller.dto.PlatformResponse;
-import com.epam.gameservice.service.exception.PlatformNotFoundException;
+import com.epam.gameservice.controller.dto.platforms.PlatformResponse;
+import com.epam.gameservice.exception.PlatformNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpServletRequest;
 
 import static java.util.Collections.singletonList;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {

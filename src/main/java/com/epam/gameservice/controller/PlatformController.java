@@ -1,8 +1,8 @@
 package com.epam.gameservice.controller;
 
-import com.epam.gameservice.controller.dto.GameDtoData;
-import com.epam.gameservice.controller.dto.GameResponse;
-import com.epam.gameservice.controller.dto.PlatformResponse;
+import com.epam.gameservice.controller.dto.games.GameDtoData;
+import com.epam.gameservice.controller.dto.games.GameResponse;
+import com.epam.gameservice.controller.dto.platforms.PlatformResponse;
 import com.epam.gameservice.controller.mapper.PlatformResponseMapper;
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.domain.PlatformDto;

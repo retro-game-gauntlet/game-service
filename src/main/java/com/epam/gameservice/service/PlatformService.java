@@ -1,18 +1,15 @@
 package com.epam.gameservice.service;
 
-import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.mapper.PlatformMapper;
 import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.repository.PlatformRepository;
-import com.epam.gameservice.service.exception.PlatformNotFoundException;
+import com.epam.gameservice.exception.PlatformNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service

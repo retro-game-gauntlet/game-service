@@ -1,4 +1,4 @@
-package com.epam.gameservice.service.exception;
+package com.epam.gameservice.exception;
 
 import static java.lang.String.format;
 
