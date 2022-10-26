@@ -12,10 +12,10 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @Builder
 @Getter
 @JsonInclude(NON_NULL)
-public class PlatformResponse {
+public class GameResponse {
 
     @JsonProperty("data")
-    private PlatformDtoData data;
+    private GameDtoData data;
 
     @JsonProperty("errors")
     private List<ErrorInfo> errorInfos;

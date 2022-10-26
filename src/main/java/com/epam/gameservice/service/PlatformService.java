@@ -1,5 +1,6 @@
 package com.epam.gameservice.service;
 
+import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.mapper.PlatformMapper;
@@ -10,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Slf4j
 @Service
