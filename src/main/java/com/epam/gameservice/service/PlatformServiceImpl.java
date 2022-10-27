@@ -31,5 +31,4 @@ public class PlatformServiceImpl implements PlatformService {
         long gamesCount = gameRepository.countByPlatformCode(platform.getCode());
         return PlatformMapper.INSTANCE.map(platform, gamesCount);
     }
-
 }

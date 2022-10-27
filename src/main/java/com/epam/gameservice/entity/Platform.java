@@ -1,9 +1,7 @@
 package com.epam.gameservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -19,6 +17,9 @@ import static javax.persistence.GenerationType.AUTO;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "platforms")
 public class Platform extends AuditMetadata {
 
