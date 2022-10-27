@@ -1,5 +1,6 @@
 package com.epam.gameservice.service;
 
+import com.epam.gameservice.annotation.LogReturning;
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
+    @LogReturning(message = "Games found:{} for platform:{}")
     public List<GameDto> findGamesByPlatformCode(String platformCode) {
         return gameRepository.findGamesByPlatformCode(platformCode);
     }
