@@ -16,7 +16,7 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
-    @LogReturning(message = "Games found:{} for platform:{}")
+    @LogReturning
     public List<GameDto> findGamesByPlatformCode(String platformCode) {
         return gameRepository.findGamesByPlatformCode(platformCode);
     }

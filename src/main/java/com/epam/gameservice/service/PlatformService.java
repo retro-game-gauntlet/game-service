@@ -19,7 +19,7 @@ public class PlatformService {
     private final PlatformRepository platformRepository;
     private final GameRepository gameRepository;
 
-    @LogReturning(message = "Platform found: {} for code: {}")
+    @LogReturning
     public PlatformDto findByCode(String code) {
         return platformRepository.findByCode(code)
                 .map(this::convert)
