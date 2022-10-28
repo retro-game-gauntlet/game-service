@@ -1,9 +1,7 @@
 package com.epam.gameservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -17,6 +15,9 @@ import static javax.persistence.GenerationType.AUTO;
 @Getter
 @Setter
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "games", indexes = {
         @Index(name = "games_platform_id_idx", columnList = "platform_id")
 })

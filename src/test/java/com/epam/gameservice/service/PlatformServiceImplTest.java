@@ -1,7 +1,6 @@
 package com.epam.gameservice.service;
 
 import com.epam.gameservice.domain.PlatformDto;
-import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.repository.PlatformRepository;
@@ -13,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
+import static com.epam.gameservice.factories.PlatformFactory.nes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -30,14 +31,12 @@ class PlatformServiceImplTest {
 
     @Test
     void shouldCreatePlatformDtoByCode() {
-        Platform nes = Platform.builder().code("NES").build();
-        when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes));
+        when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes()));
         when(gameRepository.countByPlatformCode("NES")).thenReturn(2L);
 
         PlatformDto result = platformService.findByCode("nes");
 
-        PlatformDto expected = new PlatformDto("NES", null, 2, null);
-        assertThat(result).isEqualTo(expected);
+        assertThat(result).isEqualTo(nesDto());
     }
 
     @Test

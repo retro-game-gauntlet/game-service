@@ -8,9 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -26,11 +26,10 @@ class GameServiceImplTest {
 
     @Test
     void shouldFindGamesByPlatformCode() {
-        GameDto mario = new GameDto("Super Mario Bros.", LocalDate.of(1985, 9, 13));
-        when(gameRepository.findGamesByPlatformCode("nes")).thenReturn(singletonList(mario));
+        when(gameRepository.findGamesByPlatformCode("nes")).thenReturn(singletonList(marioDto()));
 
         List<GameDto> games = gameService.findGamesByPlatformCode("nes");
 
-        assertThat(games).containsExactly(mario);
+        assertThat(games).containsExactly(marioDto());
     }
 }

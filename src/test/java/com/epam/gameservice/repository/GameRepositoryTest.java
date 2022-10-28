@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import static com.epam.gameservice.factories.GameDtoFactory.earthwormJimDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -32,7 +32,6 @@ class GameRepositoryTest {
     void shouldFindGamesByPlatformCode(String platformCode) {
         List<GameDto> games = gameRepository.findGamesByPlatformCode(platformCode);
 
-        GameDto earthwormJim = new GameDto("Earthworm Jim", LocalDate.of(1994, 1, 1));
-        assertThat(games).containsExactly(earthwormJim);
+        assertThat(games).containsExactly(earthwormJimDto());
     }
 }
