@@ -1,6 +1,7 @@
 package com.epam.gameservice.aspect;
 
 import com.epam.gameservice.annotation.LogReturning;
+import com.epam.gameservice.tags.Spring;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Spring
 @SpringBootTest(classes = AspectTestConfig.class)
 @ExtendWith(OutputCaptureExtension.class)
 class LogReturningAspectTest {

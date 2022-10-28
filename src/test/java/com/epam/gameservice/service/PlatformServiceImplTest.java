@@ -4,6 +4,7 @@ import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.repository.PlatformRepository;
+import com.epam.gameservice.tags.Junit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
+@Junit
 @ExtendWith(MockitoExtension.class)
 class PlatformServiceImplTest {
 

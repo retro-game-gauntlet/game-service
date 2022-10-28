@@ -1,6 +1,7 @@
 package com.epam.gameservice.repository;
 
 import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.tags.Spring;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Spring
 @DataJpaTest
 @Sql("classpath:sql/platforms.sql")
 class PlatformRepositoryTest {

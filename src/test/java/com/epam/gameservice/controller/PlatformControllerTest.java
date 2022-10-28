@@ -3,6 +3,7 @@ package com.epam.gameservice.controller;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.service.GameService;
 import com.epam.gameservice.service.PlatformService;
+import com.epam.gameservice.tags.Spring;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.util.ResourceUtils.getFile;
 
+@Spring
 @Import(PlatformController.class)
 @WebMvcTest(PlatformControllerTest.class)
 class PlatformControllerTest {

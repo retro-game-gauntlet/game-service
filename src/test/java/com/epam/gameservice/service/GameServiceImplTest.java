@@ -2,6 +2,7 @@ package com.epam.gameservice.service;
 
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.repository.GameRepository;
+import com.epam.gameservice.tags.Junit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+@Junit
 @ExtendWith(MockitoExtension.class)
 class GameServiceImplTest {
 

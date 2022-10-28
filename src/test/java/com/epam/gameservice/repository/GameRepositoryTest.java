@@ -1,6 +1,7 @@
 package com.epam.gameservice.repository;
 
 import com.epam.gameservice.domain.GameDto;
+import com.epam.gameservice.tags.Spring;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.List;
 import static com.epam.gameservice.factories.GameDtoFactory.earthwormJimDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Spring
 @DataJpaTest
 @Sql({"classpath:sql/platforms.sql", "classpath:sql/games.sql"})
 class GameRepositoryTest {
