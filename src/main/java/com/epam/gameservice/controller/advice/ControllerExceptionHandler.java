@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import javax.servlet.http.HttpServletRequest;
 
 import static java.util.Collections.singletonList;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ResponseStatus(BAD_REQUEST)
+    @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(PlatformNotFoundException.class)
     @ResponseBody
     public PlatformResponse handlePlatformNotFound(HttpServletRequest req, Exception ex) {
