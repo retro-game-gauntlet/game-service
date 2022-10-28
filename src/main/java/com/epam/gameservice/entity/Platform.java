@@ -37,10 +37,15 @@ public class Platform extends AuditMetadata {
     @OneToMany(mappedBy = "platform", cascade = ALL, orphanRemoval = true)
     @ToString.Exclude
     @JsonManagedReference
+    @Builder.Default
     private Set<Game> games = new HashSet<>();
-
     @Column(name = "released_at", nullable = false)
     private LocalDate releasedAt;
+
+    public void addGame(Game game) {
+        game.setPlatform(this);
+        games.add(game);
+    }
 
     @Override
     public boolean equals(Object o) {
