@@ -19,11 +19,19 @@ class LogReturningAspectTest {
     private Math math;
 
     @Test
-    void shouldLogReturnValue(CapturedOutput output) {
+    void shouldLogReturnValueWithParameters(CapturedOutput output) {
         int result = math.sum(1, 2);
 
         assertThat(result).isEqualTo(3);
         assertThat(output).contains("Method: {sum} with parameters: {a=1, b=2} returned: 3");
+    }
+
+    @Test
+    void shouldLogReturnValueWithoutParameters(CapturedOutput output) {
+        int result = math.zero();
+
+        assertThat(result).isZero();
+        assertThat(output).contains("Method: {zero} returned: 0");
     }
 
     @Component
@@ -32,6 +40,11 @@ class LogReturningAspectTest {
         @LogReturning()
         public int sum(int a, int b) {
             return a + b;
+        }
+
+        @LogReturning
+        public int zero() {
+            return 0;
         }
     }
 }
