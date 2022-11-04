@@ -17,10 +17,12 @@ import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
 import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
 import static java.nio.file.Files.readAllBytes;
 import static java.util.Collections.singletonList;
+import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.util.ResourceUtils.getFile;
 
 @Spring
@@ -61,7 +63,15 @@ class PlatformControllerTest {
         mockMvc.perform(get("/platforms/nes/games"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(readJsonFile("classpath:json/gamesByPlatform.json")));
+    }
 
+    @Test
+    void shouldCreatePlatform() throws Exception {
+        mockMvc.perform(post("/platforms")
+                        .contentType(APPLICATION_JSON)
+                        .content(readJsonFile("classpath:json/platformDtoRequest.json")))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", containsString("/platforms/NES")));
     }
 
     private String readJsonFile(String resourceLocation) throws IOException {

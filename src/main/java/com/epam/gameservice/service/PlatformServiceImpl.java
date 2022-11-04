@@ -1,6 +1,7 @@
 package com.epam.gameservice.service;
 
 import com.epam.gameservice.annotation.LogReturning;
+import com.epam.gameservice.controller.dto.platforms.PlatformDtoRequest;
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.exception.PlatformNotFoundException;
@@ -25,6 +26,13 @@ public class PlatformServiceImpl implements PlatformService {
         return platformRepository.findByCode(code)
                 .map(this::convert)
                 .orElseThrow(() -> new PlatformNotFoundException(code));
+    }
+
+    @Override
+    @Transactional
+    public void save(PlatformDtoRequest request) {
+        Platform platform = PlatformMapper.INSTANCE.map(request);
+        platformRepository.save(platform);
     }
 
     private PlatformDto convert(Platform platform) {
