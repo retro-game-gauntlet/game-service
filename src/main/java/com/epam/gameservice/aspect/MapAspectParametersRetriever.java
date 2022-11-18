@@ -1,7 +1,7 @@
 package com.epam.gameservice.aspect;
 
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -10,11 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@RequiredArgsConstructor
 public class MapAspectParametersRetriever implements AspectParametersRetriever<Map<String, Object>> {
+
+    private final AspectMethodLookup aspectMethodLookup;
 
     @Override
     public Map<String, Object> retrieve(JoinPoint jp) {
-        Method method = method(jp);
+        Method method = aspectMethodLookup.lookup(jp);
         Parameter[] parameters = method.getParameters();
         Object[] args = jp.getArgs();
         Map<String, Object> result = new HashMap<>();
@@ -22,10 +25,5 @@ public class MapAspectParametersRetriever implements AspectParametersRetriever<M
             result.put(parameters[i].getName(), args[i]);
         }
         return result;
-    }
-
-    private Method method(JoinPoint jp) {
-        MethodSignature signature = (MethodSignature) jp.getSignature();
-        return signature.getMethod();
     }
 }
