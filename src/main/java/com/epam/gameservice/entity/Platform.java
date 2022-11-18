@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Getter
@@ -24,7 +24,8 @@ import static javax.persistence.GenerationType.AUTO;
 public class Platform extends AuditMetadata {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = SEQUENCE, generator = "platform-seq-gen")
+    @SequenceGenerator(name = "platform-seq-gen", sequenceName = "platforms_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 

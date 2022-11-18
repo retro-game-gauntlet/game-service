@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.GenerationType.AUTO;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
@@ -25,7 +24,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class Game extends AuditMetadata {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = SEQUENCE, generator = "game-seq-gen")
+    @SequenceGenerator(name = "game-seq-gen", sequenceName = "games_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 
