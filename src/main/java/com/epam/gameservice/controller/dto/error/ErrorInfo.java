@@ -1,4 +1,4 @@
-package com.epam.gameservice.controller.dto;
+package com.epam.gameservice.controller.dto.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
