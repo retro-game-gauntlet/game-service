@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class ControllerExceptionHandler {
 
     @ResponseStatus(NOT_FOUND)
-    @ExceptionHandler(PlatformNotFoundException.class)
+    @ExceptionHandler({PlatformNotFoundException.class, GameNotFoundException.class})
     @ResponseBody
     public ErrorResponse handlePlatformNotFound(HttpServletRequest req, Exception ex) {
         return ErrorResponse.builder()

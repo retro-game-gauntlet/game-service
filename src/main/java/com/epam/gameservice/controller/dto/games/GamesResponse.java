@@ -4,5 +4,5 @@ import com.epam.gameservice.controller.dto.GenericResponse;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-public class GameResponse extends GenericResponse<GameDtoData> {
+public class GamesResponse extends GenericResponse<GamesDtoData> {
 }

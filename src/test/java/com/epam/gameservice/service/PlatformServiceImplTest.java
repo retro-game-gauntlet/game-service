@@ -43,14 +43,14 @@ class PlatformServiceImplTest {
         when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes()));
         when(gameRepository.countByPlatformCode("NES")).thenReturn(2L);
 
-        PlatformDto result = platformService.findByCode("nes");
+        PlatformDto result = platformService.findPlatformDtoByCode("nes");
 
         assertThat(result).isEqualTo(nesDto());
     }
 
     @Test
     void shouldThrowExceptionWhenPlatformDtoWasNotFondByCode() {
-        assertThatThrownBy(() -> platformService.findByCode("qwe"))
+        assertThatThrownBy(() -> platformService.findPlatformDtoByCode("qwe"))
                 .isInstanceOf(PlatformNotFoundException.class)
                 .hasMessageContaining("qwe");
     }

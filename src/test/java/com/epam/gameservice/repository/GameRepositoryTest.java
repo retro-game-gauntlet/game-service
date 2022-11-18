@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.epam.gameservice.factories.GameDtoFactory.earthwormJimDto;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,5 +36,15 @@ class GameRepositoryTest {
         List<GameDto> games = gameRepository.findGamesByPlatformCode(platformCode);
 
         assertThat(games).containsExactly(earthwormJimDto());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Super Mario Bros.", "SUPER MARIO BROS."})
+    void shouldFindGameByName(String name) {
+        Optional<GameDto> game = gameRepository.findGameByName(name);
+
+        assertThat(game)
+                .map(GameDto::name)
+                .hasValue("Super Mario Bros.");
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GameRepository extends JpaRepository<Game, Long> {
 
@@ -16,4 +17,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Query("select distinct new com.epam.gameservice.domain.GameDto(g.name, g.releasedAt) " +
             "from Game g left join g.platform p where upper(p.code) = upper(:platformCode)")
     List<GameDto> findGamesByPlatformCode(String platformCode);
+
+    @Query("select new com.epam.gameservice.domain.GameDto(g.name, g.releasedAt) " +
+            "from Game g where upper(g.name) = upper(:name)")
+    Optional<GameDto> findGameByName(String name);
 }

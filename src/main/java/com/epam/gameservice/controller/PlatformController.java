@@ -1,7 +1,7 @@
 package com.epam.gameservice.controller;
 
-import com.epam.gameservice.controller.dto.games.GameDtoData;
-import com.epam.gameservice.controller.dto.games.GameResponse;
+import com.epam.gameservice.controller.dto.games.GamesDtoData;
+import com.epam.gameservice.controller.dto.games.GamesResponse;
 import com.epam.gameservice.controller.dto.platforms.PlatformDtoRequest;
 import com.epam.gameservice.controller.dto.platforms.PlatformResponse;
 import com.epam.gameservice.controller.mapper.PlatformResponseMapper;
@@ -30,21 +30,21 @@ public class PlatformController {
 
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PlatformResponse> getByPlatform(@PathVariable String code) {
-        PlatformDto platformDto = platformService.findByCode(code);
+        PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
         PlatformResponse response = PlatformResponseMapper.INSTANCE.map(platformDto);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/{code}/games", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<GameResponse> getGamesByPlatform(@PathVariable String code) {
+    public ResponseEntity<GamesResponse> getGamesByPlatform(@PathVariable String code) {
         List<GameDto> gameDtos = gameService.findGamesByPlatformCode(code);
-        GameResponse response = buildGameResponse(gameDtos);
+        GamesResponse response = buildGamesResponse(gameDtos);
         return ResponseEntity.ok(response);
     }
 
-    private GameResponse buildGameResponse(List<GameDto> gameDtos) {
-        return GameResponse.builder()
-                .data(GameDtoData.builder().attributes(gameDtos).build())
+    private GamesResponse buildGamesResponse(List<GameDto> gameDtos) {
+        return GamesResponse.builder()
+                .data(GamesDtoData.builder().attributes(gameDtos).build())
                 .build();
     }
 

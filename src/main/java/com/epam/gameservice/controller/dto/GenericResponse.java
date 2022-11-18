@@ -1,5 +1,6 @@
 package com.epam.gameservice.controller.dto;
 
+import com.epam.gameservice.controller.dto.error.ErrorInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.experimental.SuperBuilder;

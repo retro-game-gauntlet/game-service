@@ -22,9 +22,14 @@ public class PlatformServiceImpl implements PlatformService {
 
     @Override
     @LogReturning
-    public PlatformDto findByCode(String code) {
+    public PlatformDto findPlatformDtoByCode(String code) {
+        return convert(findByCode(code));
+    }
+
+    @Override
+    @LogReturning
+    public Platform findByCode(String code) {
         return platformRepository.findByCode(code)
-                .map(this::convert)
                 .orElseThrow(() -> new PlatformNotFoundException(code));
     }
 
