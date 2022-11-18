@@ -1,0 +1,1 @@
+ALTER TABLE games ADD CONSTRAINT games_name_key UNIQUE (name);

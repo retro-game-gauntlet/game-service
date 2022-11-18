@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Getter
@@ -28,7 +29,7 @@ public class Game extends AuditMetadata {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "released_at", nullable = false)
