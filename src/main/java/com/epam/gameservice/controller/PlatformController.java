@@ -5,9 +5,9 @@ import com.epam.gameservice.controller.dto.games.GamesDtoData;
 import com.epam.gameservice.controller.dto.games.GamesResponse;
 import com.epam.gameservice.controller.dto.platforms.PlatformDtoRequest;
 import com.epam.gameservice.controller.dto.platforms.PlatformResponse;
-import com.epam.gameservice.controller.mapper.PlatformResponseMapper;
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.domain.PlatformDto;
+import com.epam.gameservice.mapper.PlatformMapper;
 import com.epam.gameservice.service.GameService;
 import com.epam.gameservice.service.PlatformService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class PlatformController {
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PlatformResponse> getByPlatform(@PathVariable String code) {
         PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
-        PlatformResponse response = PlatformResponseMapper.INSTANCE.map(platformDto);
+        PlatformResponse response = PlatformMapper.INSTANCE.map(platformDto);
         return ResponseEntity.ok(response);
     }
 
