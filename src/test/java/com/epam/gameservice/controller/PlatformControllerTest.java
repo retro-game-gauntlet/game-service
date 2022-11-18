@@ -1,5 +1,7 @@
 package com.epam.gameservice.controller;
 
+import com.epam.gameservice.controller.jsonreader.GameJsonReader;
+import com.epam.gameservice.controller.jsonreader.PlatformJsonReader;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.service.GameService;
 import com.epam.gameservice.service.PlatformService;
@@ -11,12 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.io.IOException;
-
 import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
 import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
-import static java.lang.String.format;
-import static java.nio.file.Files.readAllBytes;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.when;
@@ -24,7 +22,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.util.ResourceUtils.getFile;
 
 @Spring
 @Import(PlatformController.class)
@@ -45,7 +42,7 @@ class PlatformControllerTest {
 
         mockMvc.perform(get("/platforms/nes"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(readJsonFile("platformByCode.json")));
+                .andExpect(content().json(new PlatformJsonReader("platformByCode.json").read()));
     }
 
     @Test
@@ -54,7 +51,7 @@ class PlatformControllerTest {
 
         mockMvc.perform(get("/platforms/qwe"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().json(readJsonFile("platformByCodeNotFound.json")));
+                .andExpect(content().json(new PlatformJsonReader("platformByCodeNotFound.json").read()));
     }
 
     @Test
@@ -63,19 +60,24 @@ class PlatformControllerTest {
 
         mockMvc.perform(get("/platforms/nes/games"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(readJsonFile("gamesByPlatform.json")));
+                .andExpect(content().json(new GameJsonReader("gamesByPlatform.json").read()));
     }
 
     @Test
     void shouldCreatePlatform() throws Exception {
         mockMvc.perform(post("/platforms")
                         .contentType(APPLICATION_JSON)
-                        .content(readJsonFile("platformDtoRequest.json")))
+                        .content(new PlatformJsonReader("platformDtoRequest.json").read()))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/platforms/NES")));
     }
 
-    private String readJsonFile(String resourceLocation) throws IOException {
-        return new String(readAllBytes(getFile(format("classpath:json/%s", resourceLocation)).toPath()));
+    @Test
+    void shouldThrowExceptionWhenPlatformDtoRequestIsIncorrect() throws Exception {
+        mockMvc.perform(post("/platforms")
+                        .contentType(APPLICATION_JSON)
+                        .content(new PlatformJsonReader("platformDtoIncorrectRequest.json").read()))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(new PlatformJsonReader("platformDtoIncorrectRequestResponse.json").read()));
     }
 }

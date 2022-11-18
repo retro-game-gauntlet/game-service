@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class PlatformController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<URI> createPlatform(@RequestBody PlatformDtoRequest request, UriComponentsBuilder cb) {
+    public ResponseEntity<URI> createPlatform(@Valid @RequestBody PlatformDtoRequest request, UriComponentsBuilder cb) {
         platformService.save(request);
         UriComponents uriComponents = cb.path("/platforms/{code}").buildAndExpand(request.code());
         return ResponseEntity.created(uriComponents.toUri()).build();

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,7 +24,7 @@ public class GameController {
     private final GameService gameService;
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<URI> createGame(@RequestBody GameDtoRequest request, UriComponentsBuilder cb) {
+    public ResponseEntity<URI> createGame(@Valid @RequestBody GameDtoRequest request, UriComponentsBuilder cb) {
         gameService.save(request);
         UriComponents uriComponents = cb.path("/games/{name}").buildAndExpand(request.name());
         return ResponseEntity.created(uriComponents.toUri()).build();

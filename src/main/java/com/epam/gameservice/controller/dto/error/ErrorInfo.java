@@ -11,8 +11,8 @@ public class ErrorInfo {
     @JsonProperty("message")
     private final String message;
 
-    public ErrorInfo(String url, Exception ex) {
+    public ErrorInfo(String url, String message) {
         this.url = url;
-        this.message = ex.getLocalizedMessage();
+        this.message = message;
     }
 }

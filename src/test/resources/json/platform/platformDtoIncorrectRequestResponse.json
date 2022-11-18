@@ -1,0 +1,16 @@
+{
+  "errors": [
+    {
+      "url": "http://localhost/platforms",
+      "message": "Name is mandatory"
+    },
+    {
+      "url": "http://localhost/platforms",
+      "message": "Code is mandatory"
+    },
+    {
+      "url": "http://localhost/platforms",
+      "message": "Released date can't be in future"
+    }
+  ]
+}
