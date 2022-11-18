@@ -1,5 +1,6 @@
 package com.epam.gameservice.controller;
 
+import com.epam.gameservice.annotation.MethodLog;
 import com.epam.gameservice.controller.dto.games.GameDtoData;
 import com.epam.gameservice.controller.dto.games.GameDtoRequest;
 import com.epam.gameservice.controller.dto.games.GameResponse;
@@ -23,6 +24,7 @@ public class GameController {
 
     private final GameService gameService;
 
+    @MethodLog
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<URI> createGame(@Valid @RequestBody GameDtoRequest request, UriComponentsBuilder cb) {
         gameService.save(request);
@@ -30,6 +32,7 @@ public class GameController {
         return ResponseEntity.created(uriComponents.toUri()).build();
     }
 
+    @MethodLog
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<GameResponse> getGame(@PathVariable String name) {
         GameDto gameDto = gameService.findGameByName(name);
