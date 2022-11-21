@@ -1,6 +1,7 @@
 package com.epam.gameservice.controller;
 
-import com.epam.gameservice.annotation.MethodLog;
+import com.epam.gameservice.annotation.InputMethodLog;
+import com.epam.gameservice.annotation.OutputMethodLog;
 import com.epam.gameservice.controller.dto.games.GamesDtoData;
 import com.epam.gameservice.controller.dto.games.GamesResponse;
 import com.epam.gameservice.controller.dto.platforms.PlatformDtoRequest;
@@ -30,7 +31,8 @@ public class PlatformController {
     private final PlatformService platformService;
     private final GameService gameService;
 
-    @MethodLog
+    @InputMethodLog
+    @OutputMethodLog
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PlatformResponse> getByPlatform(@PathVariable String code) {
         PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
@@ -38,7 +40,8 @@ public class PlatformController {
         return ResponseEntity.ok(response);
     }
 
-    @MethodLog
+    @InputMethodLog
+    @OutputMethodLog
     @GetMapping(value = "/{code}/games", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<GamesResponse> getGamesByPlatform(@PathVariable String code) {
         List<GameDto> gameDtos = gameService.findGamesByPlatformCode(code);
@@ -46,7 +49,8 @@ public class PlatformController {
         return ResponseEntity.ok(response);
     }
 
-    @MethodLog
+    @InputMethodLog
+    @OutputMethodLog
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<URI> createPlatform(@Valid @RequestBody PlatformDtoRequest request, UriComponentsBuilder cb) {
         platformService.save(request);

@@ -6,27 +6,28 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 @Aspect
 @Component
 @RequiredArgsConstructor
-public class MethodLogAspect {
+public class OutputMethodLogAspect {
 
     private final AspectMethodLookup aspectMethodLookup;
-    private final List<MethodLogger> methodLoggers;
+    private final AspectLoggerLookup aspectLoggerLookup;
 
-    @Pointcut("@annotation(com.epam.gameservice.annotation.MethodLog)")
-    public void anyMethodAnnotatedWithMethodLog() {
+    @Pointcut("@annotation(com.epam.gameservice.annotation.OutputMethodLog)")
+    public void anyMethodAnnotatedWithOutputMethodLog() {
         // pointcut
     }
 
-    @AfterReturning(value = "anyMethodAnnotatedWithMethodLog()", returning = "retVal")
+    @AfterReturning(value = "anyMethodAnnotatedWithOutputMethodLog()", returning = "retVal")
     public void logMethod(JoinPoint jp, Object retVal) {
         Method method = aspectMethodLookup.lookup(jp);
-        methodLoggers.forEach(logger -> logger.log(method, jp, retVal));
+        Logger logger = aspectLoggerLookup.lookup(jp);
+        logger.info("Method: '{}' returned: {}", method.getName(), retVal);
     }
 }

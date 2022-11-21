@@ -8,9 +8,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(METHOD)
 @Retention(RUNTIME)
-public @interface MethodLog {
-
-    boolean logInput() default true;
-
-    boolean logOutput() default true;
+public @interface InputMethodLog {
 }

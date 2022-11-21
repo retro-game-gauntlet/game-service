@@ -1,6 +1,7 @@
 package com.epam.gameservice.service;
 
-import com.epam.gameservice.annotation.MethodLog;
+import com.epam.gameservice.annotation.InputMethodLog;
+import com.epam.gameservice.annotation.OutputMethodLog;
 import com.epam.gameservice.controller.dto.games.GameDtoRequest;
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.entity.Game;
@@ -23,20 +24,22 @@ public class GameServiceImpl implements GameService {
     private final PlatformService platformService;
 
     @Override
-    @MethodLog
+    @InputMethodLog
+    @OutputMethodLog
     public List<GameDto> findGamesByPlatformCode(String platformCode) {
         return gameRepository.findGamesByPlatformCode(platformCode);
     }
 
     @Override
-    @MethodLog
+    @InputMethodLog
+    @OutputMethodLog
     public GameDto findGameByName(String name) {
         return gameRepository.findGameByName(name)
                 .orElseThrow(() -> new GameNotFoundException(name));
     }
 
     @Override
-    @MethodLog(logOutput = false)
+    @InputMethodLog
     @Transactional
     public void save(GameDtoRequest request) {
         Platform platform = platformService.findByCode(request.platformCode());
