@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import static java.lang.String.join;
 
 @Component
-public class MapWithoutBracketsFormatter<K, V> implements Formatter<Map<K, V>> {
+public class MapWithoutBracketsStringFormatter<K, V> implements StringFormatter<Map<K, V>> {
 
     @Override
     public String format(Map<K, V> map) {

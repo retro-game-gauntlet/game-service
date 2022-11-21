@@ -2,7 +2,7 @@ package com.epam.gameservice.aspect.log;
 
 import com.epam.gameservice.annotation.MethodLog;
 import com.epam.gameservice.aspect.AspectParametersRetriever;
-import com.epam.gameservice.utils.formatter.Formatter;
+import com.epam.gameservice.utils.formatter.StringFormatter;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class InputMethodLogger implements MethodLogger {
 
-    private final Formatter<Map<String, Object>> formatter;
+    private final StringFormatter<Map<String, Object>> formatter;
     private final AspectParametersRetriever<Map<String, Object>> aspectParametersRetriever;
     private final AspectLoggerLookup aspectLoggerLookup;
 
