@@ -21,7 +21,9 @@ public class AspectParametersRetriever {
         Object[] args = jp.getArgs();
         Map<String, Object> result = new HashMap<>();
         for (int i = 0; i < parameters.length; i++) {
-            result.put(parameters[i].getName(), args[i]);
+            String name = parameters[i].getName();
+            Object value = args[i];
+            result.put(name, value);
         }
         return result;
     }
