@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class AspectParametersRetriever {
+public class AspectMethodParametersRetriever {
 
     private final AspectMethodLookup aspectMethodLookup;
 

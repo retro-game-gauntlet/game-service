@@ -1,7 +1,7 @@
 package com.epam.gameservice.aspect.log;
 
 import com.epam.gameservice.aspect.AspectMethodLookup;
-import com.epam.gameservice.aspect.AspectParametersRetriever;
+import com.epam.gameservice.aspect.AspectMethodParametersRetriever;
 import com.epam.gameservice.utils.formatter.StringFormatter;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class InputMethodLogAspect {
 
     private final AspectMethodLookup aspectMethodLookup;
-    private final AspectParametersRetriever aspectParametersRetriever;
+    private final AspectMethodParametersRetriever aspectMethodParametersRetriever;
     private final StringFormatter<Map<String, Object>> stringFormatter;
     private final AspectLoggerLookup aspectLoggerLookup;
 
@@ -31,7 +31,7 @@ public class InputMethodLogAspect {
 
     @Before(value = "anyMethodAnnotatedWithInputMethodLog()")
     public void logMethod(JoinPoint jp) {
-        Map<String, Object> args = aspectParametersRetriever.retrieve(jp);
+        Map<String, Object> args = aspectMethodParametersRetriever.retrieve(jp);
         String parameters = stringFormatter.format(args);
         Method method = aspectMethodLookup.lookup(jp);
         Logger logger = aspectLoggerLookup.lookup(jp);
