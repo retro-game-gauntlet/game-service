@@ -3,7 +3,6 @@ package com.epam.gameservice.service;
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.exception.PlatformNotFoundException;
-import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.repository.PlatformRepository;
 import com.epam.gameservice.tags.Junit;
 import org.junit.jupiter.api.Test;
@@ -33,15 +32,12 @@ class PlatformServiceImplTest {
 
     @Mock
     private PlatformRepository platformRepository;
-    @Mock
-    private GameRepository gameRepository;
     @Captor
     private ArgumentCaptor<Platform> platformArgumentCaptor;
 
     @Test
-    void shouldCreatePlatformDtoByCode() {
-        when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes()));
-        when(gameRepository.countByPlatformCode("NES")).thenReturn(2L);
+    void shouldFindPlatformDtoByCode() {
+        when(platformRepository.findPlatformDtoByCode("nes")).thenReturn(Optional.of(nesDto()));
 
         PlatformDto result = platformService.findPlatformDtoByCode("nes");
 
@@ -51,6 +47,24 @@ class PlatformServiceImplTest {
     @Test
     void shouldThrowExceptionWhenPlatformDtoWasNotFondByCode() {
         assertThatThrownBy(() -> platformService.findPlatformDtoByCode("qwe"))
+                .isInstanceOf(PlatformNotFoundException.class)
+                .hasMessageContaining("qwe");
+    }
+
+    @Test
+    void shouldFindPlatformByCode() {
+        when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes()));
+
+        Platform result = platformService.findByCode("nes");
+
+        assertThat(result)
+                .extracting(Platform::getCode)
+                .isEqualTo("NES");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenPlatformWasNotFondByCode() {
+        assertThatThrownBy(() -> platformService.findByCode("qwe"))
                 .isInstanceOf(PlatformNotFoundException.class)
                 .hasMessageContaining("qwe");
     }

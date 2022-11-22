@@ -1,5 +1,6 @@
 package com.epam.gameservice.repository;
 
+import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.tags.Spring;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,11 +11,12 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
 
+import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Spring
 @DataJpaTest
-@Sql("classpath:sql/platforms.sql")
+@Sql({"classpath:sql/platforms.sql", "classpath:sql/games.sql"})
 class PlatformRepositoryTest {
 
     @Autowired
@@ -28,5 +30,15 @@ class PlatformRepositoryTest {
         assertThat(nes)
                 .map(Platform::getCode)
                 .hasValue("NES");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"nes", "NES"})
+    void shouldFindPlatformDtoByCode(String code) {
+        Optional<PlatformDto> nes = platformRepository.findPlatformDtoByCode(code);
+
+        assertThat(nes)
+                .get()
+                .isEqualTo(nesDto());
     }
 }

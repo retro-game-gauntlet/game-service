@@ -7,7 +7,6 @@ import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.mapper.PlatformMapper;
-import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.repository.PlatformRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class PlatformServiceImpl implements PlatformService {
 
     private final PlatformRepository platformRepository;
-    private final GameRepository gameRepository;
 
     @Override
     @InputMethodLog
     @OutputMethodLog
     public PlatformDto findPlatformDtoByCode(String code) {
-        return convert(findByCode(code));
+        return platformRepository.findPlatformDtoByCode(code)
+                .orElseThrow(() -> new PlatformNotFoundException(code));
     }
 
     @Override
@@ -42,10 +41,5 @@ public class PlatformServiceImpl implements PlatformService {
     public void save(PlatformDtoRequest request) {
         Platform platform = PlatformMapper.INSTANCE.map(request);
         platformRepository.save(platform);
-    }
-
-    private PlatformDto convert(Platform platform) {
-        long gamesCount = gameRepository.countByPlatformCode(platform.getCode());
-        return PlatformMapper.INSTANCE.map(platform, gamesCount);
     }
 }
