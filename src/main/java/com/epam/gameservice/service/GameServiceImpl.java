@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.epam.gameservice.cache.CacheName.GAMES;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

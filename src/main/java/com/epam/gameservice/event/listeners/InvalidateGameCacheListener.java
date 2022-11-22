@@ -8,9 +8,11 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import static com.epam.gameservice.cache.CacheName.GAMES;
+
 @Component
 @RequiredArgsConstructor
-public class GameSaveEventListener implements ApplicationListener<GameSaveEvent> {
+public class InvalidateGameCacheListener implements ApplicationListener<GameSaveEvent> {
 
     private final CacheManager cacheManager;
 

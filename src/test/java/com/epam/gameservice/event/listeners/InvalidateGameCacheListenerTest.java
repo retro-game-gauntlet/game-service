@@ -8,14 +8,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
+import static com.epam.gameservice.cache.CacheName.GAMES;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class GameSaveEventListenerTest {
+class InvalidateGameCacheListenerTest {
 
     @InjectMocks
-    private GameSaveEventListener gameSaveEventListener;
+    private InvalidateGameCacheListener invalidateGameCacheListener;
 
     @Mock
     private CacheManager cacheManager;
@@ -26,7 +27,7 @@ class GameSaveEventListenerTest {
     void shouldCallInvalidate() {
         when(cacheManager.getCache(GAMES)).thenReturn(cache);
 
-        gameSaveEventListener.onApplicationEvent(any());
+        invalidateGameCacheListener.onApplicationEvent(any());
 
         verify(cache).invalidate();
     }
@@ -35,7 +36,7 @@ class GameSaveEventListenerTest {
     void shouldNotCallInvalidateWhenCacheNotFound() {
         when(cacheManager.getCache(GAMES)).thenReturn(null);
 
-        gameSaveEventListener.onApplicationEvent(any());
+        invalidateGameCacheListener.onApplicationEvent(any());
 
         verify(cache, never()).invalidate();
     }

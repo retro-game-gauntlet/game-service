@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
+import static com.epam.gameservice.cache.CacheName.GAMES;
+
 @ComponentScan({"com.epam.gameservice.service", "com.epam.gameservice.event"})
 @Configuration
 @EnableCaching
