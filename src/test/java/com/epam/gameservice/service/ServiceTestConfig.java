@@ -17,7 +17,7 @@ public class ServiceTestConfig {
 
     @Bean
     public ConcurrentMapCache gamesCache() {
-        return new ConcurrentMapCache("games");
+        return new ConcurrentMapCache(GAMES);
     }
 
     @Bean

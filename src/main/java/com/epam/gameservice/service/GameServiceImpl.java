@@ -30,7 +30,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @InputMethodLog
     @OutputMethodLog
-    @Cacheable("games")
+    @Cacheable(GAMES)
     public List<GameDto> findGamesByPlatformCode(String platformCode) {
         return gameRepository.findGamesByPlatformCode(platformCode);
     }
@@ -38,7 +38,7 @@ public class GameServiceImpl implements GameService {
     @Override
     @InputMethodLog
     @OutputMethodLog
-    @Cacheable("games")
+    @Cacheable(GAMES)
     public GameDto findGameByName(String name) {
         return gameRepository.findGameByName(name)
                 .orElseThrow(() -> new GameNotFoundException(name));

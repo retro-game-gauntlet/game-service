@@ -24,7 +24,7 @@ class GameSaveEventListenerTest {
 
     @Test
     void shouldCallInvalidate() {
-        when(cacheManager.getCache("games")).thenReturn(cache);
+        when(cacheManager.getCache(GAMES)).thenReturn(cache);
 
         gameSaveEventListener.onApplicationEvent(any());
 
@@ -33,7 +33,7 @@ class GameSaveEventListenerTest {
 
     @Test
     void shouldNotCallInvalidateWhenCacheNotFound() {
-        when(cacheManager.getCache("games")).thenReturn(null);
+        when(cacheManager.getCache(GAMES)).thenReturn(null);
 
         gameSaveEventListener.onApplicationEvent(any());
 

@@ -17,7 +17,7 @@ public class GameSaveEventListener implements ApplicationListener<GameSaveEvent>
     @Override
     @InputMethodLog
     public void onApplicationEvent(GameSaveEvent event) {
-        Cache cache = cacheManager.getCache("games");
+        Cache cache = cacheManager.getCache(GAMES);
         if (cache != null) {
             cache.invalidate();
         }
