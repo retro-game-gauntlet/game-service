@@ -6,10 +6,13 @@ import com.epam.gameservice.controller.dto.games.GameDtoRequest;
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.entity.Game;
 import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.event.events.GameSaveEvent;
 import com.epam.gameservice.exception.GameNotFoundException;
 import com.epam.gameservice.mapper.GameMapper;
 import com.epam.gameservice.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,7 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
     private final PlatformService platformService;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     @InputMethodLog
@@ -47,5 +51,6 @@ public class GameServiceImpl implements GameService {
         Platform platform = platformService.findByCode(request.platformCode());
         Game game = GameMapper.INSTANCE.map(request);
         platform.addGame(game);
+        eventPublisher.publishEvent(new GameSaveEvent(request.name()));
     }
 }

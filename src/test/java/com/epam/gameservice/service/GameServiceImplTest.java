@@ -2,6 +2,7 @@ package com.epam.gameservice.service;
 
 import com.epam.gameservice.domain.GameDto;
 import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.event.events.GameSaveEvent;
 import com.epam.gameservice.exception.GameNotFoundException;
 import com.epam.gameservice.repository.GameRepository;
 import com.epam.gameservice.tags.Junit;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @Junit
@@ -34,6 +38,8 @@ class GameServiceImplTest {
     private GameRepository gameRepository;
     @Mock
     private PlatformService platformService;
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
 
     @Test
     void shouldFindGamesByPlatformCode() {
@@ -73,5 +79,6 @@ class GameServiceImplTest {
                 .allMatch(game ->
                         game.getName().equals("Super Mario Bros.") && game.getPlatform().getCode().equals("NES")
                 );
+        verify(eventPublisher).publishEvent(any(GameSaveEvent.class));
     }
 }

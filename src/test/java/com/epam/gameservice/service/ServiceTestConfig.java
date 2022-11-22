@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@ComponentScan({"com.epam.gameservice.service"})
+@ComponentScan({"com.epam.gameservice.service", "com.epam.gameservice.event"})
 @Configuration
 @EnableCaching
 public class ServiceTestConfig {
