@@ -1,6 +1,6 @@
 package com.epam.gameservice.factories;
 
-import com.epam.gameservice.controller.dto.games.GameDtoRequest;
+import com.epam.gameservice.web.dto.games.GameDtoRequest;
 
 import java.time.LocalDate;
 

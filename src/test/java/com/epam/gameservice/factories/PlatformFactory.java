@@ -1,6 +1,6 @@
 package com.epam.gameservice.factories;
 
-import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.dao.entity.Platform;
 
 import java.time.LocalDate;
 
