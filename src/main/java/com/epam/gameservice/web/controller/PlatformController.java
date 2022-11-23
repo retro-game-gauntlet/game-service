@@ -11,6 +11,8 @@ import com.epam.gameservice.web.dto.games.GamesDtoData;
 import com.epam.gameservice.web.dto.games.GamesResponse;
 import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
 import com.epam.gameservice.web.dto.platforms.PlatformResponse;
+import com.epam.gameservice.web.dto.platforms.PlatformsDtoData;
+import com.epam.gameservice.web.dto.platforms.PlatformsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +32,14 @@ public class PlatformController {
 
     private final PlatformService platformService;
     private final GameService gameService;
+
+    @OutputMethodLog
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<PlatformsResponse> getAllPlatforms() {
+        List<PlatformDto> platformDtos = platformService.findAllPlatformDtos();
+        PlatformsResponse response = buildPlatformsResponse(platformDtos);
+        return ResponseEntity.ok(response);
+    }
 
     @InputMethodLog
     @OutputMethodLog
@@ -56,6 +66,12 @@ public class PlatformController {
         platformService.save(request);
         UriComponents uriComponents = cb.path("/platforms/{code}").buildAndExpand(request.code());
         return ResponseEntity.created(uriComponents.toUri()).build();
+    }
+
+    private PlatformsResponse buildPlatformsResponse(List<PlatformDto> platformDtos) {
+        return PlatformsResponse.builder()
+                .data(PlatformsDtoData.builder().attributes(platformDtos).build())
+                .build();
     }
 
     private GamesResponse buildGamesResponse(List<GameDto> gameDtos) {

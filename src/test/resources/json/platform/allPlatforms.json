@@ -1,0 +1,12 @@
+{
+  "data": {
+    "attributes": [
+      {
+        "code": "NES",
+        "name": "Nintendo Entertainment System",
+        "gamesCount": 2,
+        "releasedAt": "1983-06-15"
+      }
+    ]
+  }
+}

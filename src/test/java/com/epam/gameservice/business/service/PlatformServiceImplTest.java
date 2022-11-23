@@ -15,11 +15,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
 import static com.epam.gameservice.factories.PlatformDtoRequestFactory.nesDtoRequest;
 import static com.epam.gameservice.factories.PlatformFactory.nes;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -83,5 +85,14 @@ class PlatformServiceImplTest {
         assertThat(platform.getCode()).isEqualTo(nes().getCode());
         assertThat(platform.getName()).isEqualTo(nes().getName());
         verify(eventPublisher).publishEvent(any(PlatformSaveEvent.class));
+    }
+
+    @Test
+    void shouldFindAllPlatformDtos() {
+        when(platformRepository.findAllPlatformDtos()).thenReturn(singletonList(nesDto()));
+
+        List<PlatformDto> platforms = platformService.findAllPlatformDtos();
+
+        assertThat(platforms).containsExactly(nesDto());
     }
 }

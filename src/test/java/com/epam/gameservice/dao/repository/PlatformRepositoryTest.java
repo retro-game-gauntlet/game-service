@@ -3,15 +3,18 @@ package com.epam.gameservice.dao.repository;
 import com.epam.gameservice.business.domain.PlatformDto;
 import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.tags.Spring;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.epam.gameservice.factories.PlatformDtoFactory.nesDto;
+import static com.epam.gameservice.factories.PlatformDtoFactory.smdDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Spring
@@ -40,5 +43,12 @@ class PlatformRepositoryTest {
         assertThat(nes)
                 .get()
                 .isEqualTo(nesDto());
+    }
+
+    @Test
+    void shouldFindAllPlatformDtos() {
+        List<PlatformDto> platforms = platformRepository.findAllPlatformDtos();
+
+        assertThat(platforms).containsExactly(nesDto(), smdDto());
     }
 }

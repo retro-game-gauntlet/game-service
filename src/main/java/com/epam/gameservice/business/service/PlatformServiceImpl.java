@@ -15,6 +15,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.epam.gameservice.business.cache.CacheName.PLATFORMS;
 
 @Service
@@ -24,6 +26,13 @@ public class PlatformServiceImpl implements PlatformService {
 
     private final PlatformRepository platformRepository;
     private final ApplicationEventPublisher eventPublisher;
+
+    @Override
+    @OutputMethodLog
+    @Cacheable(PLATFORMS)
+    public List<PlatformDto> findAllPlatformDtos() {
+        return platformRepository.findAllPlatformDtos();
+    }
 
     @Override
     @InputMethodLog

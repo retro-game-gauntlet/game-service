@@ -80,4 +80,13 @@ class PlatformControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json(new PlatformJsonReader("platformDtoIncorrectRequestResponse.json").read()));
     }
+
+    @Test
+    void shouldReturnAllPlatforms() throws Exception {
+        when(platformService.findAllPlatformDtos()).thenReturn(singletonList(nesDto()));
+
+        mockMvc.perform(get("/platforms"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(new PlatformJsonReader("allPlatforms.json").read()));
+    }
 }
