@@ -2,6 +2,7 @@ package com.epam.gameservice.service;
 
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.event.events.PlatformSaveEvent;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.repository.PlatformRepository;
 import com.epam.gameservice.tags.Junit;
@@ -12,6 +13,7 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.Optional;
 
@@ -20,6 +22,7 @@ import static com.epam.gameservice.factories.PlatformDtoRequestFactory.nesDtoReq
 import static com.epam.gameservice.factories.PlatformFactory.nes;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +35,8 @@ class PlatformServiceImplTest {
 
     @Mock
     private PlatformRepository platformRepository;
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
     @Captor
     private ArgumentCaptor<Platform> platformArgumentCaptor;
 
@@ -77,5 +82,6 @@ class PlatformServiceImplTest {
         Platform platform = platformArgumentCaptor.getValue();
         assertThat(platform.getCode()).isEqualTo(nes().getCode());
         assertThat(platform.getName()).isEqualTo(nes().getName());
+        verify(eventPublisher).publishEvent(any(PlatformSaveEvent.class));
     }
 }

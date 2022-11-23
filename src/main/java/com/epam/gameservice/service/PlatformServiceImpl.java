@@ -5,11 +5,13 @@ import com.epam.gameservice.annotation.OutputMethodLog;
 import com.epam.gameservice.controller.dto.platforms.PlatformDtoRequest;
 import com.epam.gameservice.domain.PlatformDto;
 import com.epam.gameservice.entity.Platform;
+import com.epam.gameservice.event.events.PlatformSaveEvent;
 import com.epam.gameservice.exception.PlatformNotFoundException;
 import com.epam.gameservice.mapper.PlatformMapper;
 import com.epam.gameservice.repository.PlatformRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import static com.epam.gameservice.cache.CacheName.PLATFORMS;
 public class PlatformServiceImpl implements PlatformService {
 
     private final PlatformRepository platformRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     @InputMethodLog
@@ -46,5 +49,6 @@ public class PlatformServiceImpl implements PlatformService {
     public void save(PlatformDtoRequest request) {
         Platform platform = PlatformMapper.INSTANCE.map(request);
         platformRepository.save(platform);
+        eventPublisher.publishEvent(new PlatformSaveEvent(platform.getCode()));
     }
 }

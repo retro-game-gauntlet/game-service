@@ -8,24 +8,24 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.epam.gameservice.cache.CacheName.GAMES;
+import static com.epam.gameservice.cache.CacheName.PLATFORMS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @Junit
 @ExtendWith(MockitoExtension.class)
-class InvalidateGameCacheListenerTest {
+class InvalidatePlatformCacheListenerTest {
 
     @InjectMocks
-    private InvalidateGameCacheListener invalidateGameCacheListener;
+    private InvalidatePlatformCacheListener invalidatePlatformCacheListener;
 
     @Mock
     private InvalidateCache invalidateCache;
 
     @Test
     void shouldCallInvalidate() {
-        invalidateGameCacheListener.onApplicationEvent(any());
+        invalidatePlatformCacheListener.onApplicationEvent(any());
 
-        verify(invalidateCache).invalidate(GAMES);
+        verify(invalidateCache).invalidate(PLATFORMS);
     }
 }
