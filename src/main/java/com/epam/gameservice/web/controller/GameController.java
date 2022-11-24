@@ -4,8 +4,8 @@ import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.service.GameService;
-import com.epam.gameservice.web.dto.Data;
 import com.epam.gameservice.web.dto.Response;
+import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
 import com.epam.gameservice.web.dto.games.GameDtoRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class GameController {
 
     private final GameService gameService;
+    private final GenericResponseBuilder genericResponseBuilder;
 
     @InputMethodLog
     @OutputMethodLog
@@ -39,13 +40,7 @@ public class GameController {
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<GameDto>> getGame(@PathVariable String name) {
         GameDto gameDto = gameService.findGameByName(name);
-        Response<GameDto> response = buildGameResponse(gameDto);
+        Response<GameDto> response = genericResponseBuilder.buildResponse(gameDto);
         return ResponseEntity.ok(response);
-    }
-
-    private Response<GameDto> buildGameResponse(GameDto gameDto) {
-        return Response.<GameDto>builder()
-                .data(Data.<GameDto>builder().attributes(gameDto).build())
-                .build();
     }
 }

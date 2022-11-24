@@ -4,6 +4,7 @@ import com.epam.gameservice.business.exception.PlatformNotFoundException;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.business.service.PlatformService;
 import com.epam.gameservice.tags.Spring;
+import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
 import com.epam.gameservice.web.jsonreader.GameJsonReader;
 import com.epam.gameservice.web.jsonreader.PlatformJsonReader;
 import org.junit.jupiter.api.Test;
@@ -24,8 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Spring
-@Import(PlatformController.class)
-@WebMvcTest(PlatformControllerTest.class)
+@Import(GenericResponseBuilder.class)
+@WebMvcTest(PlatformController.class)
 class PlatformControllerTest {
 
     @Autowired

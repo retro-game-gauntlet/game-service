@@ -3,6 +3,7 @@ package com.epam.gameservice.web.controller;
 import com.epam.gameservice.business.exception.GameNotFoundException;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.tags.Spring;
+import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
 import com.epam.gameservice.web.jsonreader.GameJsonReader;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Spring
-@Import(GameController.class)
-@WebMvcTest(GameControllerTest.class)
+@Import(GenericResponseBuilder.class)
+@WebMvcTest(GameController.class)
 class GameControllerTest {
 
     @Autowired
