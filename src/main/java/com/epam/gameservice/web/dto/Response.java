@@ -20,4 +20,7 @@ public class Response<T> {
 
     @JsonProperty("errors")
     private final List<ErrorInfo> errorInfos;
+
+    @JsonProperty("warnings")
+    private final List<ErrorInfo> warningInfos;
 }
