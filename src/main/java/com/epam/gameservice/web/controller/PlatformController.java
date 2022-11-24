@@ -4,7 +4,6 @@ import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.domain.PlatformDto;
-import com.epam.gameservice.business.mapper.PlatformMapper;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.business.service.PlatformService;
 import com.epam.gameservice.web.dto.Response;
@@ -44,7 +43,7 @@ public class PlatformController {
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<PlatformDto>> getByPlatform(@PathVariable String code) {
         PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
-        Response<PlatformDto> response = PlatformMapper.INSTANCE.map(platformDto);
+        Response<PlatformDto> response = genericResponseBuilder.buildResponse(platformDto);
         return ResponseEntity.ok(response);
     }
 

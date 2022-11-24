@@ -2,10 +2,8 @@ package com.epam.gameservice.business.mapper;
 
 import com.epam.gameservice.business.domain.PlatformDto;
 import com.epam.gameservice.dao.entity.Platform;
-import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
@@ -16,7 +14,4 @@ public interface PlatformMapper {
     PlatformDto map(Platform platform, long gamesCount);
 
     Platform map(PlatformDtoRequest request);
-
-    @Mapping(source = ".", target = "data.attributes")
-    Response<PlatformDto> map(PlatformDto platformDto);
 }
