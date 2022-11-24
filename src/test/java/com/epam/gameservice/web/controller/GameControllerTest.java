@@ -35,7 +35,7 @@ class GameControllerTest {
     void shouldReturnGameResponse() throws Exception {
         when(gameService.findGameByName("Super Mario Bros.")).thenReturn(marioDto());
 
-        mockMvc.perform(get("/games/Super Mario Bros."))
+        mockMvc.perform(get("/v1/games/Super Mario Bros."))
                 .andExpect(status().isOk())
                 .andExpect(content().json(new GameJsonReader("gameByName.json").read()));
     }
@@ -44,14 +44,14 @@ class GameControllerTest {
     void shouldThrowNotFoundExceptionWhenGameNotFound() throws Exception {
         when(gameService.findGameByName("qwe")).thenThrow(new GameNotFoundException("qwe"));
 
-        mockMvc.perform(get("/games/qwe"))
+        mockMvc.perform(get("/v1/games/qwe"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(new GameJsonReader("gameByNameNotFound.json").read()));
     }
 
     @Test
     void shouldCreateGame() throws Exception {
-        mockMvc.perform(post("/games")
+        mockMvc.perform(post("/v1/games")
                         .contentType(APPLICATION_JSON)
                         .content(new GameJsonReader("gameDtoRequest.json").read()))
                 .andExpect(status().isCreated())

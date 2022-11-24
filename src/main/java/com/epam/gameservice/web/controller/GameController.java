@@ -19,7 +19,7 @@ import java.net.URI;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/games")
+@RequestMapping("/v1/games")
 @RequiredArgsConstructor
 public class GameController {
 

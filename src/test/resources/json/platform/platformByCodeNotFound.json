@@ -1,7 +1,7 @@
 {
   "errors": [
     {
-      "url": "http://localhost/platforms/qwe",
+      "url": "http://localhost/v1/platforms/qwe",
       "message": "Platform with code qwe not found!"
     }
   ]

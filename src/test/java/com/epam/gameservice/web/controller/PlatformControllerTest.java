@@ -41,7 +41,7 @@ class PlatformControllerTest {
     void shouldReturnPlatformResponce() throws Exception {
         when(platformService.findPlatformDtoByCode("nes")).thenReturn(nesDto());
 
-        mockMvc.perform(get("/platforms/nes"))
+        mockMvc.perform(get("/v1/platforms/nes"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(new PlatformJsonReader("platformByCode.json").read()));
     }
@@ -50,7 +50,7 @@ class PlatformControllerTest {
     void shouldThrowNotFoundExceptionWhenPlatformNotFound() throws Exception {
         when(platformService.findPlatformDtoByCode("qwe")).thenThrow(new PlatformNotFoundException("qwe"));
 
-        mockMvc.perform(get("/platforms/qwe"))
+        mockMvc.perform(get("/v1/platforms/qwe"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().json(new PlatformJsonReader("platformByCodeNotFound.json").read()));
     }
@@ -59,14 +59,14 @@ class PlatformControllerTest {
     void shouldReturnGamesByPlatformCode() throws Exception {
         when(gameService.findGamesByPlatformCode("nes")).thenReturn(singletonList(marioDto()));
 
-        mockMvc.perform(get("/platforms/nes/games"))
+        mockMvc.perform(get("/v1/platforms/nes/games"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(new GameJsonReader("gamesByPlatform.json").read()));
     }
 
     @Test
     void shouldCreatePlatform() throws Exception {
-        mockMvc.perform(post("/platforms")
+        mockMvc.perform(post("/v1/platforms")
                         .contentType(APPLICATION_JSON)
                         .content(new PlatformJsonReader("platformDtoRequest.json").read()))
                 .andExpect(status().isCreated())
@@ -75,7 +75,7 @@ class PlatformControllerTest {
 
     @Test
     void shouldThrowExceptionWhenPlatformDtoRequestIsIncorrect() throws Exception {
-        mockMvc.perform(post("/platforms")
+        mockMvc.perform(post("/v1/platforms")
                         .contentType(APPLICATION_JSON)
                         .content(new PlatformJsonReader("platformDtoIncorrectRequest.json").read()))
                 .andExpect(status().isBadRequest())
@@ -86,7 +86,7 @@ class PlatformControllerTest {
     void shouldReturnAllPlatforms() throws Exception {
         when(platformService.findAllPlatformDtos()).thenReturn(singletonList(nesDto()));
 
-        mockMvc.perform(get("/platforms"))
+        mockMvc.perform(get("/v1/platforms"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(new PlatformJsonReader("allPlatforms.json").read()));
     }
