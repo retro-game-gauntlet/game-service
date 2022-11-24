@@ -11,11 +11,11 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class AspectMethodParametersRetriever {
+public class AspectMethodParametersLookup {
 
     private final AspectMethodLookup aspectMethodLookup;
 
-    public Map<String, Object> retrieve(JoinPoint jp) {
+    public Map<String, Object> lookup(JoinPoint jp) {
         Method method = aspectMethodLookup.lookup(jp);
         Parameter[] parameters = method.getParameters();
         Object[] args = jp.getArgs();
