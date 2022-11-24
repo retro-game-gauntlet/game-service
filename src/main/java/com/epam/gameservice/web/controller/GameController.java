@@ -4,9 +4,9 @@ import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.service.GameService;
-import com.epam.gameservice.web.dto.games.GameDtoData;
+import com.epam.gameservice.web.dto.Data;
+import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.games.GameDtoRequest;
-import com.epam.gameservice.web.dto.games.GameResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,15 +37,15 @@ public class GameController {
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<GameResponse> getGame(@PathVariable String name) {
+    public ResponseEntity<Response<GameDto>> getGame(@PathVariable String name) {
         GameDto gameDto = gameService.findGameByName(name);
-        GameResponse response = buildGameResponse(gameDto);
+        Response<GameDto> response = buildGameResponse(gameDto);
         return ResponseEntity.ok(response);
     }
 
-    private GameResponse buildGameResponse(GameDto gameDto) {
-        return GameResponse.builder()
-                .data(GameDtoData.builder().attributes(gameDto).build())
+    private Response<GameDto> buildGameResponse(GameDto gameDto) {
+        return Response.<GameDto>builder()
+                .data(Data.<GameDto>builder().attributes(gameDto).build())
                 .build();
     }
 }

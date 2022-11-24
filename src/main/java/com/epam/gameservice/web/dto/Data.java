@@ -2,14 +2,16 @@ package com.epam.gameservice.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.experimental.SuperBuilder;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-@SuperBuilder
+@Builder
+@RequiredArgsConstructor
 @JsonInclude(NON_NULL)
-public abstract class GenericData<T> {
+public class Data<T> {
 
     @JsonProperty("attributes")
-    protected final T attributes;
+    private final T attributes;
 }

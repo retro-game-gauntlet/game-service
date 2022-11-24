@@ -7,12 +7,9 @@ import com.epam.gameservice.business.domain.PlatformDto;
 import com.epam.gameservice.business.mapper.PlatformMapper;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.business.service.PlatformService;
-import com.epam.gameservice.web.dto.games.GamesDtoData;
-import com.epam.gameservice.web.dto.games.GamesResponse;
+import com.epam.gameservice.web.dto.Data;
+import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
-import com.epam.gameservice.web.dto.platforms.PlatformResponse;
-import com.epam.gameservice.web.dto.platforms.PlatformsDtoData;
-import com.epam.gameservice.web.dto.platforms.PlatformsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,27 +32,27 @@ public class PlatformController {
 
     @OutputMethodLog
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlatformsResponse> getAllPlatforms() {
+    public ResponseEntity<Response<List<PlatformDto>>> getAllPlatforms() {
         List<PlatformDto> platformDtos = platformService.findAllPlatformDtos();
-        PlatformsResponse response = buildPlatformsResponse(platformDtos);
+        Response<List<PlatformDto>> response = buildPlatformsResponse(platformDtos);
         return ResponseEntity.ok(response);
     }
 
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<PlatformResponse> getByPlatform(@PathVariable String code) {
+    public ResponseEntity<Response<PlatformDto>> getByPlatform(@PathVariable String code) {
         PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
-        PlatformResponse response = PlatformMapper.INSTANCE.map(platformDto);
+        Response<PlatformDto> response = PlatformMapper.INSTANCE.map(platformDto);
         return ResponseEntity.ok(response);
     }
 
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{code}/games", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<GamesResponse> getGamesByPlatform(@PathVariable String code) {
+    public ResponseEntity<Response<List<GameDto>>> getGamesByPlatform(@PathVariable String code) {
         List<GameDto> gameDtos = gameService.findGamesByPlatformCode(code);
-        GamesResponse response = buildGamesResponse(gameDtos);
+        Response<List<GameDto>> response = buildGamesResponse(gameDtos);
         return ResponseEntity.ok(response);
     }
 
@@ -68,15 +65,15 @@ public class PlatformController {
         return ResponseEntity.created(uriComponents.toUri()).build();
     }
 
-    private PlatformsResponse buildPlatformsResponse(List<PlatformDto> platformDtos) {
-        return PlatformsResponse.builder()
-                .data(PlatformsDtoData.builder().attributes(platformDtos).build())
+    private Response<List<PlatformDto>> buildPlatformsResponse(List<PlatformDto> platformDtos) {
+        return Response.<List<PlatformDto>>builder()
+                .data(Data.<List<PlatformDto>>builder().attributes(platformDtos).build())
                 .build();
     }
 
-    private GamesResponse buildGamesResponse(List<GameDto> gameDtos) {
-        return GamesResponse.builder()
-                .data(GamesDtoData.builder().attributes(gameDtos).build())
+    private Response<List<GameDto>> buildGamesResponse(List<GameDto> gameDtos) {
+        return Response.<List<GameDto>>builder()
+                .data(Data.<List<GameDto>>builder().attributes(gameDtos).build())
                 .build();
     }
 }
