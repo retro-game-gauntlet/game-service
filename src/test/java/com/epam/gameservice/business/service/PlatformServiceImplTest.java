@@ -59,24 +59,6 @@ class PlatformServiceImplTest {
     }
 
     @Test
-    void shouldFindPlatformByCode() {
-        when(platformRepository.findByCode("nes")).thenReturn(Optional.of(nes()));
-
-        Platform result = platformService.findByCode("nes");
-
-        assertThat(result)
-                .extracting(Platform::getCode)
-                .isEqualTo("NES");
-    }
-
-    @Test
-    void shouldThrowExceptionWhenPlatformWasNotFondByCode() {
-        assertThatThrownBy(() -> platformService.findByCode("qwe"))
-                .isInstanceOf(PlatformNotFoundException.class)
-                .hasMessageContaining("qwe");
-    }
-
-    @Test
     void shouldSavePlatform() {
         platformService.save(nesDtoRequest());
 

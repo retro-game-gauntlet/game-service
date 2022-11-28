@@ -3,8 +3,10 @@ package com.epam.gameservice.business.service;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.event.events.GameSaveEvent;
 import com.epam.gameservice.business.exception.GameNotFoundException;
+import com.epam.gameservice.business.exception.PlatformNotFoundException;
 import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.GameRepository;
+import com.epam.gameservice.dao.repository.PlatformRepository;
 import com.epam.gameservice.tags.Junit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.ApplicationEventPublisher;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
 import static com.epam.gameservice.factories.PlatformFactory.nes;
@@ -36,7 +39,7 @@ class GameServiceImplTest {
     @Mock
     private GameRepository gameRepository;
     @Mock
-    private PlatformService platformService;
+    private PlatformRepository platformRepository;
     @Mock
     private ApplicationEventPublisher eventPublisher;
 
@@ -70,7 +73,7 @@ class GameServiceImplTest {
     @Test
     void shouldSaveGame() {
         Platform nes = nes();
-        when(platformService.findByCode("NES")).thenReturn(nes);
+        when(platformRepository.findByCode("NES")).thenReturn(Optional.of(nes));
 
         gameService.save(marioDto());
 
@@ -79,5 +82,16 @@ class GameServiceImplTest {
                         game.getName().equals("Super Mario Bros.") && game.getPlatform().getCode().equals("NES")
                 );
         verify(eventPublisher).publishEvent(any(GameSaveEvent.class));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenPlatformNotFoundOnGameSave() {
+        when(platformRepository.findByCode("NES")).thenThrow(new PlatformNotFoundException("NES"));
+
+        GameDto mario = marioDto();
+        assertThatThrownBy(() -> gameService.save(mario))
+                .isInstanceOf(PlatformNotFoundException.class)
+                .hasMessageContaining("NES");
+
     }
 }

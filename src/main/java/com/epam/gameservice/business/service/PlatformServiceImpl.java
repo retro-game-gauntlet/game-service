@@ -45,15 +45,6 @@ public class PlatformServiceImpl implements PlatformService {
 
     @Override
     @InputMethodLog
-    @OutputMethodLog
-    @Cacheable(PLATFORMS)
-    public Platform findByCode(String code) {
-        return platformRepository.findByCode(code)
-                .orElseThrow(() -> new PlatformNotFoundException(code));
-    }
-
-    @Override
-    @InputMethodLog
     @Transactional
     public void save(PlatformDtoRequest request) {
         Platform platform = PlatformMapper.INSTANCE.map(request);

@@ -5,10 +5,12 @@ import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.event.events.GameSaveEvent;
 import com.epam.gameservice.business.exception.GameNotFoundException;
+import com.epam.gameservice.business.exception.PlatformNotFoundException;
 import com.epam.gameservice.business.mapper.GameMapper;
 import com.epam.gameservice.dao.entity.Game;
 import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.GameRepository;
+import com.epam.gameservice.dao.repository.PlatformRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,7 +27,7 @@ import static com.epam.gameservice.business.cache.CacheName.GAMES;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
-    private final PlatformService platformService;
+    private final PlatformRepository platformRepository;
     private final ApplicationEventPublisher eventPublisher;
 
     @Override
@@ -49,7 +51,8 @@ public class GameServiceImpl implements GameService {
     @InputMethodLog
     @Transactional
     public void save(GameDto gameDto) {
-        Platform platform = platformService.findByCode(gameDto.platformCode());
+        Platform platform = platformRepository.findByCode(gameDto.platformCode())
+                .orElseThrow(() -> new PlatformNotFoundException(gameDto.platformCode()));
         Game game = GameMapper.INSTANCE.map(gameDto);
         platform.addGame(game);
         eventPublisher.publishEvent(new GameSaveEvent(gameDto.name()));
