@@ -2,7 +2,7 @@
   "errors": [
     {
       "url": "http://localhost/v1/games/qwe",
-      "message": "Game with name qwe not found!"
+      "message": "Game with name: 'qwe' not found!"
     }
   ]
 }
