@@ -20,4 +20,6 @@ public interface PlatformRepository extends JpaRepository<Platform, Long> {
     @Query("select distinct new com.epam.gameservice.business.domain.PlatformDto(p.code, p.name, count(g.id), p.releasedAt) " +
             "from Platform p left join p.games g where upper(p.code) = upper(:code) group by p.id")
     Optional<PlatformDto> findPlatformDtoByCode(String code);
+
+    boolean existsByCode(String code);
 }

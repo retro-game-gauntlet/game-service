@@ -51,4 +51,18 @@ class PlatformRepositoryTest {
 
         assertThat(platforms).containsExactly(nesDto(), smdDto());
     }
+
+    @Test
+    void shouldReturnTrueWhenPlatformExistsByCode() {
+        boolean exists = platformRepository.existsByCode("NES");
+
+        assertThat(exists).isTrue();
+    }
+
+    @Test
+    void shouldReturnFalseWhenPlatformDoesNotExistsByCode() {
+        boolean exists = platformRepository.existsByCode("qwe");
+
+        assertThat(exists).isFalse();
+    }
 }

@@ -36,7 +36,10 @@ public class GameServiceImpl implements GameService {
     @OutputMethodLog
     @Cacheable(GAMES)
     public List<GameDto> findGamesByPlatformCode(String platformCode) {
-        return gameRepository.findGamesByPlatformCode(platformCode);
+        if (platformRepository.existsByCode(platformCode)) {
+            return gameRepository.findGamesByPlatformCode(platformCode);
+        }
+        throw new PlatformNotFoundException(platformCode);
     }
 
     @Override
