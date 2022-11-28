@@ -38,6 +38,7 @@ public class Game extends AuditMetadata {
     @ManyToOne(cascade = ALL, optional = false)
     @JoinColumn(name = "platform_id", nullable = false)
     @JsonBackReference
+    @ToString.Exclude
     private Platform platform;
 
     @Override
