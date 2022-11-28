@@ -41,7 +41,7 @@ public class PlatformController {
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{code}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<PlatformDto>> getByPlatform(@PathVariable String code) {
+    public ResponseEntity<Response<PlatformDto>> getPlatformByPlatformCode(@PathVariable String code) {
         PlatformDto platformDto = platformService.findPlatformDtoByCode(code);
         Response<PlatformDto> response = genericResponseBuilder.buildResponse(platformDto);
         return ResponseEntity.ok(response);
@@ -50,7 +50,7 @@ public class PlatformController {
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{code}/games", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<List<GameDto>>> getGamesByPlatform(@PathVariable String code) {
+    public ResponseEntity<Response<List<GameDto>>> getGamesByPlatformCode(@PathVariable String code) {
         List<GameDto> gameDtos = gameService.findGamesByPlatformCode(code);
         Response<List<GameDto>> response = genericResponseBuilder.buildResponse(gameDtos);
         return ResponseEntity.ok(response);

@@ -38,7 +38,7 @@ public class GameController {
     @InputMethodLog
     @OutputMethodLog
     @GetMapping(value = "/{name}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<GameDto>> getGame(@PathVariable String name) {
+    public ResponseEntity<Response<GameDto>> getGameByName(@PathVariable String name) {
         GameDto gameDto = gameService.findGameByName(name);
         Response<GameDto> response = genericResponseBuilder.buildResponse(gameDto);
         return ResponseEntity.ok(response);
