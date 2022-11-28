@@ -22,7 +22,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(NOT_FOUND)
     @ExceptionHandler({PlatformNotFoundException.class, GameNotFoundException.class})
     @ResponseBody
-    public Response<ErrorInfo> handlePlatformNotFound(HttpServletRequest req, Exception ex) {
+    public Response<ErrorInfo> handleNotFoundException(HttpServletRequest req, Exception ex) {
         return Response.<ErrorInfo>builder()
                 .errorInfos(singletonList(getErrorInfo(req, ex)))
                 .build();
