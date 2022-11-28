@@ -11,6 +11,7 @@ import com.epam.gameservice.dao.entity.Game;
 import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.GameRepository;
 import com.epam.gameservice.dao.repository.PlatformRepository;
+import com.epam.gameservice.web.dto.games.GameDtoRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
@@ -50,11 +51,11 @@ public class GameServiceImpl implements GameService {
     @Override
     @InputMethodLog
     @Transactional
-    public void save(GameDto gameDto) {
-        Platform platform = platformRepository.findByCode(gameDto.platformCode())
-                .orElseThrow(() -> new PlatformNotFoundException(gameDto.platformCode()));
-        Game game = GameMapper.INSTANCE.map(gameDto);
+    public void save(GameDtoRequest request) {
+        Platform platform = platformRepository.findByCode(request.platformCode())
+                .orElseThrow(() -> new PlatformNotFoundException(request.platformCode()));
+        Game game = GameMapper.INSTANCE.map(request);
         platform.addGame(game);
-        eventPublisher.publishEvent(new GameSaveEvent(gameDto.name()));
+        eventPublisher.publishEvent(new GameSaveEvent(request.name()));
     }
 }

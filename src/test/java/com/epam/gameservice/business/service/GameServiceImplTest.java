@@ -8,6 +8,7 @@ import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.GameRepository;
 import com.epam.gameservice.dao.repository.PlatformRepository;
 import com.epam.gameservice.tags.Junit;
+import com.epam.gameservice.web.dto.games.GameDtoRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
+import static com.epam.gameservice.factories.GameDtoRequestFactory.marioDtoRequest;
 import static com.epam.gameservice.factories.PlatformFactory.nes;
 import static java.util.Collections.singletonList;
 import static java.util.Optional.empty;
@@ -75,7 +77,7 @@ class GameServiceImplTest {
         Platform nes = nes();
         when(platformRepository.findByCode("NES")).thenReturn(Optional.of(nes));
 
-        gameService.save(marioDto());
+        gameService.save(marioDtoRequest());
 
         assertThat(nes.getGames())
                 .allMatch(game ->
@@ -88,7 +90,7 @@ class GameServiceImplTest {
     void shouldThrowExceptionWhenPlatformNotFoundOnGameSave() {
         when(platformRepository.findByCode("NES")).thenThrow(new PlatformNotFoundException("NES"));
 
-        GameDto mario = marioDto();
+        GameDtoRequest mario = marioDtoRequest();
         assertThatThrownBy(() -> gameService.save(mario))
                 .isInstanceOf(PlatformNotFoundException.class)
                 .hasMessageContaining("NES");

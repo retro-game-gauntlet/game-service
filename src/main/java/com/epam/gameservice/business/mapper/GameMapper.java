@@ -1,6 +1,5 @@
 package com.epam.gameservice.business.mapper;
 
-import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.dao.entity.Game;
 import com.epam.gameservice.web.dto.games.GameDtoRequest;
 import org.mapstruct.Mapper;
@@ -11,7 +10,5 @@ public interface GameMapper {
 
     GameMapper INSTANCE = Mappers.getMapper(GameMapper.class);
 
-    Game map(GameDto gameDto);
-
-    GameDto map(GameDtoRequest request);
+    Game map(GameDtoRequest request);
 }
