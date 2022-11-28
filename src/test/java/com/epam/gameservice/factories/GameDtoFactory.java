@@ -7,10 +7,10 @@ import java.time.LocalDate;
 public class GameDtoFactory {
 
     public static GameDto marioDto() {
-        return new GameDto("Super Mario Bros.", LocalDate.of(1985, 9, 13));
+        return new GameDto("Super Mario Bros.", LocalDate.of(1985, 9, 13), "NES");
     }
 
     public static GameDto earthwormJimDto() {
-        return new GameDto("Earthworm Jim", LocalDate.of(1994, 1, 1));
+        return new GameDto("Earthworm Jim", LocalDate.of(1994, 1, 1), "SMD");
     }
 }

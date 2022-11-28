@@ -16,7 +16,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import java.util.List;
 
 import static com.epam.gameservice.factories.GameDtoFactory.marioDto;
-import static com.epam.gameservice.factories.GameDtoRequestFactory.marioDtoRequest;
 import static com.epam.gameservice.factories.PlatformFactory.nes;
 import static java.util.Collections.singletonList;
 import static java.util.Optional.empty;
@@ -73,7 +72,7 @@ class GameServiceImplTest {
         Platform nes = nes();
         when(platformService.findByCode("NES")).thenReturn(nes);
 
-        gameService.save(marioDtoRequest());
+        gameService.save(marioDto());
 
         assertThat(nes.getGames())
                 .allMatch(game ->

@@ -3,6 +3,7 @@ package com.epam.gameservice.web.controller;
 import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
+import com.epam.gameservice.business.mapper.GameMapper;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
@@ -30,7 +31,8 @@ public class GameController {
     @OutputMethodLog
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<URI> createGame(@Valid @RequestBody GameDtoRequest request, UriComponentsBuilder cb) {
-        gameService.save(request);
+        GameDto gameDto = GameMapper.INSTANCE.map(request);
+        gameService.save(gameDto);
         UriComponents uriComponents = cb.path("/games/{name}").buildAndExpand(request.name());
         return ResponseEntity.created(uriComponents.toUri()).build();
     }
