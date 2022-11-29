@@ -21,5 +21,5 @@ public interface PlatformRepository extends JpaRepository<Platform, Long> {
             "from Platform p left join p.games g where upper(p.code) = upper(:code) group by p.id")
     Optional<PlatformDto> findPlatformDtoByCode(String code);
 
-    boolean existsByCode(String code);
+    boolean existsByCodeIgnoreCase(String code);
 }

@@ -48,7 +48,7 @@ class GameServiceImplTest {
     @Test
     void shouldFindGamesByPlatformCode() {
         when(gameRepository.findGamesByPlatformCode("nes")).thenReturn(singletonList(marioDto()));
-        when(platformRepository.existsByCode("nes")).thenReturn(true);
+        when(platformRepository.existsByCodeIgnoreCase("nes")).thenReturn(true);
 
         List<GameDto> games = gameService.findGamesByPlatformCode("nes");
 
@@ -57,7 +57,7 @@ class GameServiceImplTest {
 
     @Test
     void shouldThrowExceptionWhenGamesRequestedForIncorrectPlatform() {
-        when(platformRepository.existsByCode("qwe")).thenReturn(false);
+        when(platformRepository.existsByCodeIgnoreCase("qwe")).thenReturn(false);
 
         assertThatThrownBy(() -> gameService.findGamesByPlatformCode("qwe"))
                 .isInstanceOf(PlatformNotFoundException.class)
