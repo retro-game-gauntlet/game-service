@@ -1,7 +1,5 @@
 package com.epam.gameservice.business.service;
 
-import com.epam.gameservice.business.annotation.InputMethodLog;
-import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.event.events.GameSaveEvent;
 import com.epam.gameservice.business.exception.GameNotFoundException;
@@ -12,6 +10,8 @@ import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.GameRepository;
 import com.epam.gameservice.dao.repository.PlatformRepository;
 import com.epam.gameservice.web.dto.games.GameDtoRequest;
+import com.epam.methodlog.annotation.InputMethodLog;
+import com.epam.methodlog.annotation.OutputMethodLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;

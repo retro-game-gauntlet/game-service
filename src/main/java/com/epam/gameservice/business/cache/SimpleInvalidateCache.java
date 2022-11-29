@@ -1,7 +1,7 @@
 package com.epam.gameservice.business.cache;
 
-import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.exception.CacheNotFoundException;
+import com.epam.methodlog.annotation.InputMethodLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;

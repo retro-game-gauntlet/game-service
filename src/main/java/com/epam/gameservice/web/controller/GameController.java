@@ -1,12 +1,12 @@
 package com.epam.gameservice.web.controller;
 
-import com.epam.gameservice.business.annotation.InputMethodLog;
-import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.GameDto;
 import com.epam.gameservice.business.service.GameService;
 import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
 import com.epam.gameservice.web.dto.games.GameDtoRequest;
+import com.epam.methodlog.annotation.InputMethodLog;
+import com.epam.methodlog.annotation.OutputMethodLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

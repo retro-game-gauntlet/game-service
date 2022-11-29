@@ -1,7 +1,5 @@
 package com.epam.gameservice.business.service;
 
-import com.epam.gameservice.business.annotation.InputMethodLog;
-import com.epam.gameservice.business.annotation.OutputMethodLog;
 import com.epam.gameservice.business.domain.PlatformDto;
 import com.epam.gameservice.business.event.events.PlatformSaveEvent;
 import com.epam.gameservice.business.exception.PlatformNotFoundException;
@@ -9,6 +7,8 @@ import com.epam.gameservice.business.mapper.PlatformMapper;
 import com.epam.gameservice.dao.entity.Platform;
 import com.epam.gameservice.dao.repository.PlatformRepository;
 import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
+import com.epam.methodlog.annotation.InputMethodLog;
+import com.epam.methodlog.annotation.OutputMethodLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;

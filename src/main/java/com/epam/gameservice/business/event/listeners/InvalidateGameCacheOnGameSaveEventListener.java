@@ -1,8 +1,8 @@
 package com.epam.gameservice.business.event.listeners;
 
-import com.epam.gameservice.business.annotation.InputMethodLog;
 import com.epam.gameservice.business.cache.InvalidateCache;
 import com.epam.gameservice.business.event.events.GameSaveEvent;
+import com.epam.methodlog.annotation.InputMethodLog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.lang.NonNull;
