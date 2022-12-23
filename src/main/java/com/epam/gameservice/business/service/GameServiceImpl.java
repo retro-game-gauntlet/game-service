@@ -53,6 +53,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     @InputMethodLog
+    @OutputMethodLog
+    public String findRandomGameNameByPlatformCode(String platformCode) {
+        return gameRepository.findRandomGameNameByPlatformCode(platformCode);
+    }
+
+    @Override
+    @InputMethodLog
     @Transactional
     public void save(GameDtoRequest request) {
         Platform platform = platformRepository.findByCode(request.platformCode())

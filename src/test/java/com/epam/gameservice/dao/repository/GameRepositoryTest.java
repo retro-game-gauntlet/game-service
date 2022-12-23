@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
-import static com.epam.gameservice.factories.GameDtoFactory.earthwormJimDto;
+import static com.epam.gameservice.factories.GameDtoFactory.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Spring
@@ -46,5 +48,18 @@ class GameRepositoryTest {
         assertThat(game)
                 .map(GameDto::name)
                 .hasValue("Super Mario Bros.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"nes", "NES"})
+    void shouldRandomGameByPlatformCode(String platformCode) {
+        Set<String> names = new HashSet<>();
+
+        for (int i = 0; i < 50; i++) {
+            String name = gameRepository.findRandomGameNameByPlatformCode(platformCode);
+            names.add(name);
+        }
+
+        assertThat(names).containsExactlyInAnyOrder("Super Mario Bros.", "Battle City");
     }
 }

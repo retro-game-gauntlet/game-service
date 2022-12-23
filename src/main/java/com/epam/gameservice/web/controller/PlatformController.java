@@ -10,6 +10,7 @@ import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
 import com.epam.methodlog.annotation.InputMethodLog;
 import com.epam.methodlog.annotation.OutputMethodLog;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
@@ -61,7 +62,16 @@ public class PlatformController {
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<URI> createPlatform(@Valid @RequestBody PlatformDtoRequest request, UriComponentsBuilder cb) {
         platformService.save(request);
-        UriComponents uriComponents = cb.path("/platforms/{code}").buildAndExpand(request.code());
+        UriComponents uriComponents = cb.path("/v1/platforms/{code}").buildAndExpand(request.code());
         return ResponseEntity.created(uriComponents.toUri()).build();
+    }
+
+    @InputMethodLog
+    @OutputMethodLog
+    @GetMapping("/{code}/games/random")
+    public ResponseEntity<URI> getRandomGameByPlatformCode(@PathVariable String code, UriComponentsBuilder cb) {
+        String gameName = gameService.findRandomGameNameByPlatformCode(code);
+        UriComponents uriComponents = cb.path("/v1/games/{gameName}").buildAndExpand(gameName);
+        return ResponseEntity.status(HttpStatus.FOUND).location(uriComponents.toUri()).build();
     }
 }

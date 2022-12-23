@@ -11,5 +11,7 @@ public interface GameService {
 
     GameDto findGameByName(String name);
 
+    String findRandomGameNameByPlatformCode(String platformCode);
+
     void save(GameDtoRequest request);
 }

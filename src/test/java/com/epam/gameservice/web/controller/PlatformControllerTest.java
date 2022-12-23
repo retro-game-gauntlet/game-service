@@ -90,4 +90,13 @@ class PlatformControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(new PlatformJsonReader("allPlatforms.json").read()));
     }
+
+    @Test
+    void shouldReturnRedirectForRandomGame() throws Exception {
+        when(gameService.findRandomGameNameByPlatformCode("NES")).thenReturn("Super Mario Bros.");
+
+        mockMvc.perform(get("/v1/platforms/NES/games/random"))
+                .andExpect(status().isFound())
+                .andExpect(header().string("Location", containsString("/v1/games/Super%20Mario%20Bros.")));
+    }
 }

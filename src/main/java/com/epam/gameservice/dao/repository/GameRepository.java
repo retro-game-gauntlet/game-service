@@ -18,6 +18,10 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "from Game g left join g.platform p where upper(p.code) = upper(:platformCode)")
     List<GameDto> findGamesByPlatformCode(String platformCode);
 
+    @Query(nativeQuery = true, value = "select g.name from games g left join platforms p on g.platform_id = p.id " +
+            "where upper(p.code) = upper(:platformCode) order by random() limit 1")
+    String findRandomGameNameByPlatformCode(String platformCode);
+
     @Query("select new com.epam.gameservice.business.domain.GameDto(g.name, g.releasedAt) " +
             "from Game g where upper(g.name) = upper(:name)")
     Optional<GameDto> findGameByName(String name);
