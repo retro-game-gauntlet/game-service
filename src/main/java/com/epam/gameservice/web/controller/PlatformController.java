@@ -9,6 +9,7 @@ import com.epam.gameservice.web.dto.builder.GenericResponseBuilder;
 import com.epam.gameservice.web.dto.platforms.PlatformDtoRequest;
 import com.epam.methodlog.annotation.InputMethodLog;
 import com.epam.methodlog.annotation.OutputMethodLog;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 

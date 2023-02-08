@@ -4,13 +4,13 @@ import com.epam.gameservice.business.exception.GameNotFoundException;
 import com.epam.gameservice.business.exception.PlatformNotFoundException;
 import com.epam.gameservice.web.dto.Response;
 import com.epam.gameservice.web.dto.error.ErrorInfo;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
